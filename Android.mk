@@ -2,7 +2,7 @@ LOCAL_PATH:= $(call my-dir)
 LINUX_KERNEL_INCLUDE = external/libusb-compat/libusb/
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES:=\
+LOCAL_SRC_FILES := \
 	usb_modeswitch.c
 
 LOCAL_CFLAGS := -O2 -g
@@ -18,10 +18,11 @@ LOCAL_STATIC_LIBRARIES += libpcap
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
 
-LOCAL_MODULE_TAGS := eng optional
+LOCAL_MODULE_TAGS := optional
 
 LOCAL_MODULE := usb_modeswitch
 
-LOCAL_POST_PROCESS_COMMAND := $(shell cp -rf $(LOCAL_PATH)/usb_modeswitch.d  $(TARGET_OUT)/etc/)
+LOCAL_POST_PROCESS_COMMAND := \
+	$(call find-copy-subdir-files,*,$(LOCAL_PATH)/usb_modeswitch.d,$(TARGET_OUT)/etc/usb_modeswitch.d)
 
 include $(BUILD_EXECUTABLE)
